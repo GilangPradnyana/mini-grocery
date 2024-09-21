@@ -1,14 +1,14 @@
 // ****** SELECT ITEMS **********
 const alert = document.querySelector('.alert');
 const form = document.querySelector('.grocery-form');
-const submitBtn = document.querySelector('submit-btn');
+const submitBtn = document.querySelector('.submit-btn');
 const container = document.querySelector('.grocery-container');
 const list = document.querySelector('grocery-list');
 const clearBtn = document.querySelector('.clear-btn');
 const grocery = document.getElementById('grocery')
 // edit option
 let editElement;
-let editID = ''
+let editID = '';
 let editFlag = false;
 // ****** EVENT LISTENERS **********
 form.addEventListener('submit', addItems);
@@ -23,14 +23,12 @@ function addItems(e) {
     const ID = new Date().getTime().toString();
     // make the deccison for addItem, edit and nothing
     if(value && !editFlag) {
-        console.log('hi');
-        displayAlert('item has been added', 'success')
+        displayAlert('item has been added', 'success');
+        setBackDefault();
     } else if(value && editFlag) {
-        console.log('hello');
-        displayAlert('item has been edited', 'success')
+        displayAlert('item has been edited', 'success');
     } else { 
-        console.log('please add some items')
-        displayAlert('please add some value', 'danger')
+        displayAlert('please add some value', 'danger');
     };
 };
 
@@ -43,7 +41,14 @@ function displayAlert(text, action) {
         alert.textContent = '';
         alert.classList.remove(`alert-${action}`);
     }, 1000); 
-}
+};
+// set back the form value to default before add some value again
+function setBackDefault() {
+    grocery.value = '';
+    editFlag = false;
+    editID = '';
+    submitBtn.textContent = 'submit';
+};
 
 
 // ****** LOCAL STORAGE **********
