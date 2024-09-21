@@ -27,11 +27,15 @@ function addItems(e) {
         // make the list visible
         container.classList.add('show-container');
         displayAlert('item has been added', 'success');
+        // add to the databse
+        addToLocalStorage(ID, value)
+        // setb the submit form to default
         setBackDefault();
     } else if(value && editFlag) {
         editElement.innerHTML = value;
+        editLocalStorage(ID, value)
         displayAlert('item has been edited', 'success');
-        
+        setBackDefault()
     } else { 
         displayAlert('please add some value', 'danger');
     };
@@ -61,10 +65,12 @@ function clearItems() {
         list.removeChild(item);
     });
     container.classList.remove('show-container');
+    localStorage.removeItem('list')
 };
 // delete Items 1 by 1
 function deleteItem(e){
     const item = e.currentTarget.parentElement.parentElement;
+    const id = item.dataset.id
     list.removeChild(item);
     if(list.children.length > 0) {
         displayAlert('item has been deleted', 'success');
@@ -73,6 +79,7 @@ function deleteItem(e){
         container.classList.remove('show-container');
     };
     setBackDefault();
+    removeFromLocalStorage(id);
 };
 // edit the item
 function editItem(e) {
@@ -90,6 +97,44 @@ function editItem(e) {
 
 
 // ****** LOCAL STORAGE **********
+// will use to add the item to the Database
+function addToLocalStorage(id, value) {
+    const element = {id, value};
+    let item = getLocalStorage();
+    item.push(element);
+    // push the data to localStorage/Database
+    localStorage.setItem('list', JSON.stringify(item));
+};
+// remove the items 1 by 1 in the Database
+function removeFromLocalStorage(id) {
+    let item = getLocalStorage();
+    item = item.filter((items)=> {
+        if(items.id !== id) {
+            return items
+        };
+    });
+
+    // add to the localStorage/Database
+    localStorage.setItem('list', JSON.stringify(item));
+};
+// edit the items and change in the Database
+function editLocalStorage(id, value) {
+    let item = getLocalStorage();
+    item = item.map((items)=> {
+        if(items.id === id) {
+            item.value = value;
+        };
+        return items;
+    });
+    // edit data in the Database
+    localStorage.setItem('list', JSON.stringify(item));
+}
+
+
+// the acces to get into Database
+function getLocalStorage() {
+    return localStorage.getItem('list')? JSON.parse(localStorage.getItem('list')):[];
+};
 
 // ****** SETUP ITEMS **********
 function createListItems(ID, value) {
