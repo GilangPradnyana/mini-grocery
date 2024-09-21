@@ -3,7 +3,7 @@ const alert = document.querySelector('.alert');
 const form = document.querySelector('.grocery-form');
 const submitBtn = document.querySelector('.submit-btn');
 const container = document.querySelector('.grocery-container');
-const list = document.querySelector('grocery-list');
+const list = document.querySelector('.grocery-list');
 const clearBtn = document.querySelector('.clear-btn');
 const grocery = document.getElementById('grocery')
 // edit option
@@ -23,6 +23,9 @@ function addItems(e) {
     const ID = new Date().getTime().toString();
     // make the deccison for addItem, edit and nothing
     if(value && !editFlag) {
+        createListItems(ID, value);
+        // make the list visible
+        container.classList.add('show-container');
         displayAlert('item has been added', 'success');
         setBackDefault();
     } else if(value && editFlag) {
@@ -54,3 +57,32 @@ function setBackDefault() {
 // ****** LOCAL STORAGE **********
 
 // ****** SETUP ITEMS **********
+function createListItems(ID, value) {
+    const element = document.createElement('article');
+    // add class
+    element.classList.add('grocery-item');
+    // add ID
+    const attr = document.createAttribute('data-id');
+    attr.value = ID;
+    element.setAttributeNode(attr);
+    // return the dynamic html
+    element.innerHTML = ` <p class="title">${value}</p>
+        <div class="btn-container">
+          <!-- edit-btn -->
+          <button type="button" class="edit-btn">
+            <i class="fas fa-edit"></i>        
+          '</button>
+          <!-- trash btn -->
+          <button type="button" class="delete-btn">
+            <i class="fas fa-trash"></i>        
+          </button>
+        </div>`;
+    
+    // delete and edit btn
+    // const deleteBtn = element.querySelector('.delete-btn');
+    // const editBtn = element.querySelector('.edit-btn');
+    // deleteBtn.addEventListener('click', deleteItem)
+    // editBtn.addEventListener('click', editItem)
+    // add to the list
+    list.appendChild(element);
+}
