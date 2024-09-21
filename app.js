@@ -11,6 +11,9 @@ let editElement;
 let editID = ''
 let editFlag = false;
 // ****** EVENT LISTENERS **********
+form.addEventListener('submit', addItems);
+// clearBtn.addEventListener('click', clearItems);
+// window.addEventListener('DOMContentLoaded', setupItems);
 
 // ****** FUNCTIONS **********
 
