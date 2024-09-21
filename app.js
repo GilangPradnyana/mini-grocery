@@ -60,6 +60,19 @@ function clearItems() {
     });
     container.classList.remove('show-container');
 };
+// delete Items 1 by 1
+function deleteItem(e){
+    const item = e.currentTarget.parentElement.parentElement;
+    list.removeChild(item);
+    if(list.children.length > 0) {
+        displayAlert('item has been deleted', 'success');
+    } else {
+        displayAlert('item is empty now', 'danger');
+        container.classList.remove('show-container');
+    };
+    setBackDefault()
+};
+
 
 
 
@@ -88,9 +101,9 @@ function createListItems(ID, value) {
         </div>`;
     
     // delete and edit btn
-    // const deleteBtn = element.querySelector('.delete-btn');
+    const deleteBtn = element.querySelector('.delete-btn');
     // const editBtn = element.querySelector('.edit-btn');
-    // deleteBtn.addEventListener('click', deleteItem)
+    deleteBtn.addEventListener('click', deleteItem)
     // editBtn.addEventListener('click', editItem)
     // add to the list
     list.appendChild(element);
