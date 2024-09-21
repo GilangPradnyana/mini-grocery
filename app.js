@@ -29,7 +29,9 @@ function addItems(e) {
         displayAlert('item has been added', 'success');
         setBackDefault();
     } else if(value && editFlag) {
+        editElement.innerHTML = value;
         displayAlert('item has been edited', 'success');
+        
     } else { 
         displayAlert('please add some value', 'danger');
     };
@@ -70,8 +72,19 @@ function deleteItem(e){
         displayAlert('item is empty now', 'danger');
         container.classList.remove('show-container');
     };
-    setBackDefault()
+    setBackDefault();
 };
+// edit the item
+function editItem(e) {
+    const item = e.currentTarget.parentElement.parentElement;
+    editElement = e.currentTarget.parentElement.previousElementSibling;
+    // change the value here
+    grocery.value = editElement.innerHTML;
+    editFlag = true;
+    editID = item.dataset.id
+    // the button section
+    submitBtn.textContent = 'Edit'
+}
 
 
 
@@ -102,9 +115,9 @@ function createListItems(ID, value) {
     
     // delete and edit btn
     const deleteBtn = element.querySelector('.delete-btn');
-    // const editBtn = element.querySelector('.edit-btn');
+    const editBtn = element.querySelector('.edit-btn');
     deleteBtn.addEventListener('click', deleteItem)
-    // editBtn.addEventListener('click', editItem)
+    editBtn.addEventListener('click', editItem)
     // add to the list
     list.appendChild(element);
 };
