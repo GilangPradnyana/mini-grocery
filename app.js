@@ -24,12 +24,28 @@ function addItems(e) {
     // make the deccison for addItem, edit and nothing
     if(value && !editFlag) {
         console.log('hi');
+        displayAlert('item has been added', 'success')
     } else if(value && editFlag) {
         console.log('hello');
+        displayAlert('item has been edited', 'success')
     } else { 
         console.log('please add some items')
+        displayAlert('please add some value', 'danger')
     };
 };
+
+// make an Alert of the action that client will be doing
+function displayAlert(text, action) {
+    alert.textContent = text;
+    alert.classList.add(`alert-${action}`);
+    // set the timeout
+    setTimeout(() => {
+        alert.textContent = '';
+        alert.classList.remove(`alert-${action}`);
+    }, 1000); 
+}
+
+
 // ****** LOCAL STORAGE **********
 
 // ****** SETUP ITEMS **********
