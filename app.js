@@ -13,7 +13,7 @@ let editFlag = false;
 // ****** EVENT LISTENERS **********
 form.addEventListener('submit', addItems);
 clearBtn.addEventListener('click', clearItems);
-// window.addEventListener('DOMContentLoaded', setupItems);
+window.addEventListener('DOMContentLoaded', setupItems);
 
 // ****** FUNCTIONS **********
 function addItems(e) {
@@ -137,6 +137,18 @@ function getLocalStorage() {
 };
 
 // ****** SETUP ITEMS **********
+// to load the item when the window refreshed
+function setupItems() {
+    let item = getLocalStorage();
+    // the decission
+    if(item.length > 0) {
+        item.forEach((items)=> {
+            createListItems(items.id, items.value); // the parameter targeted to the function
+        });
+        container.classList.add('show-container');
+    };
+};
+// create the list in dynamic way
 function createListItems(ID, value) {
     const element = document.createElement('article');
     // add class
