@@ -33,8 +33,8 @@ function addItems(e) {
         setBackDefault();
     } else if(value && editFlag) {
         editElement.innerHTML = value;
-        editLocalStorage(ID, value)
         displayAlert('item has been edited', 'success');
+        editLocalStorage(editID, value)
         setBackDefault()
     } else { 
         displayAlert('please add some value', 'danger');
@@ -122,7 +122,7 @@ function editLocalStorage(id, value) {
     let item = getLocalStorage();
     item = item.map((items)=> {
         if(items.id === id) {
-            item.value = value;
+            items.value = value;
         };
         return items;
     });
